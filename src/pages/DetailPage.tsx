@@ -4,10 +4,10 @@ import { ArrowLeft, Sparkles } from 'lucide-react'
 import { getEntryById } from '../storage'
 import { getMoodConfig } from '../types'
 
-const fadeUp = (delay: number) => ({
+const up = (delay: number) => ({
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { delay, duration: 0.4, ease: 'easeOut' },
+  transition: { delay, duration: 0.4 },
 })
 
 export default function DetailPage() {
@@ -33,7 +33,7 @@ export default function DetailPage() {
   return (
     <div className="max-w-lg mx-auto px-5 pt-10 pb-32">
       <motion.button
-        {...fadeUp(0)}
+        {...up(0)}
         whileTap={{ scale: 0.95 }}
         onClick={() => navigate(-1)}
         className="flex items-center gap-1.5 text-gray-400 text-sm mb-8 hover:text-gray-600 transition-colors"
@@ -43,7 +43,7 @@ export default function DetailPage() {
 
       {/* Mood header */}
       <motion.div
-        {...fadeUp(0.05)}
+        {...up(0.05)}
         className="rounded-3xl p-6 mb-4 border"
         style={{ backgroundColor: cfg.color + '12', borderColor: cfg.color + '25' }}
       >
@@ -66,7 +66,7 @@ export default function DetailPage() {
 
       {/* Diary text */}
       <motion.div
-        {...fadeUp(0.12)}
+        {...up(0.12)}
         className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 shadow-sm border border-white mb-4"
       >
         <p className="text-xs text-gray-400 font-medium mb-3 tracking-wide">我的记录</p>
@@ -75,7 +75,7 @@ export default function DetailPage() {
 
       {/* AI response */}
       <motion.div
-        {...fadeUp(0.2)}
+        {...up(0.2)}
         className="rounded-3xl p-6 border"
         style={{ backgroundColor: cfg.color + '0a', borderColor: cfg.color + '25' }}
       >

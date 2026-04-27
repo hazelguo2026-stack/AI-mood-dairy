@@ -7,13 +7,11 @@ import { today, getEntryByDate, saveEntry } from '../storage'
 import { analyzeMood } from '../ai'
 import QuoteCard from '../components/QuoteCard'
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  show: (i: number) => ({
-    opacity: 1, y: 0,
-    transition: { delay: i * 0.08, duration: 0.4, ease: 'easeOut' },
-  }),
-}
+const up = (delay: number) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay, duration: 0.4 },
+})
 
 export default function TodayPage() {
   const navigate = useNavigate()
@@ -50,7 +48,7 @@ export default function TodayPage() {
 
   return (
     <div className="max-w-lg mx-auto px-5 pt-12 pb-32">
-      <motion.div custom={0} variants={fadeUp} initial="hidden" animate="show" className="mb-8">
+      <motion.div {...up(0)} className="mb-8">
         <p className="text-xs font-medium tracking-widest text-purple-400 uppercase mb-1">{dateLabel}</p>
         <h1 className="text-3xl font-bold text-gray-800 leading-tight">今天感觉<br/>怎么样？</h1>
       </motion.div>
@@ -89,9 +87,7 @@ export default function TodayPage() {
         ) : (
           <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             {/* Mood selector */}
-            <motion.div custom={1} variants={fadeUp} initial="hidden" animate="show"
-              className="bg-white/80 backdrop-blur-sm rounded-3xl p-5 shadow-sm border border-white mb-4"
-            >
+            <motion.div {...up(0.08)} className="bg-white/80 backdrop-blur-sm rounded-3xl p-5 shadow-sm border border-white mb-4">
               <p className="text-xs text-gray-400 font-medium mb-4 tracking-wide">选择今日心情</p>
               <div className="flex justify-between gap-2">
                 {MOODS.map(m => (
@@ -120,9 +116,7 @@ export default function TodayPage() {
             </motion.div>
 
             {/* Textarea */}
-            <motion.div custom={2} variants={fadeUp} initial="hidden" animate="show"
-              className="bg-white/80 backdrop-blur-sm rounded-3xl p-5 shadow-sm border border-white mb-4"
-            >
+            <motion.div {...up(0.16)} className="bg-white/80 backdrop-blur-sm rounded-3xl p-5 shadow-sm border border-white mb-4">
               <p className="text-xs text-gray-400 font-medium mb-3 tracking-wide">写下今天的故事</p>
               <textarea
                 value={text}
@@ -137,7 +131,7 @@ export default function TodayPage() {
             </motion.div>
 
             {/* Submit */}
-            <motion.div custom={3} variants={fadeUp} initial="hidden" animate="show">
+            <motion.div {...up(0.24)}>
               <motion.button
                 onClick={handleSubmit}
                 disabled={!mood || !text.trim() || loading}
@@ -169,11 +163,7 @@ export default function TodayPage() {
         )}
       </AnimatePresence>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.4 }}
-        className="mt-4"
-      >
+      <motion.div {...up(0.4)} className="mt-4">
         <QuoteCard />
       </motion.div>
     </div>
