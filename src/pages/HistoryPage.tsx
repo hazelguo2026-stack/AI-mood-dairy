@@ -39,7 +39,7 @@ export default function HistoryPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.06, duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-                whileHover={{ y: -2, shadow: 'lg' }}
+                whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => navigate(`/detail/${entry.id}`)}
                 className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-white text-left flex gap-4 items-center hover:shadow-md transition-shadow duration-200"
