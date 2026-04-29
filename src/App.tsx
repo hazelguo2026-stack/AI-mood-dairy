@@ -4,7 +4,6 @@ import TodayPage from './pages/TodayPage'
 import CalendarPage from './pages/CalendarPage'
 import HistoryPage from './pages/HistoryPage'
 import DetailPage from './pages/DetailPage'
-import PlanPage from './pages/PlanPage'
 
 export default function App() {
   return (
@@ -13,7 +12,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<TodayPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/plan" element={<PlanPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/detail/:id" element={<DetailPage />} />
         </Routes>
