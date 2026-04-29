@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom'
-import { PenLine, CalendarDays, BookOpen } from 'lucide-react'
+import { PenLine, CalendarDays, BookOpen, ListTodo } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const links = [
   { to: '/', label: '今日', Icon: PenLine },
   { to: '/calendar', label: '日历', Icon: CalendarDays },
+  { to: '/plan', label: '规划', Icon: ListTodo },
   { to: '/history', label: '历史', Icon: BookOpen },
 ]
 
