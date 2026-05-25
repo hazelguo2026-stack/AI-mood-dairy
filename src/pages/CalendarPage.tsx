@@ -96,21 +96,49 @@ export default function CalendarPage() {
             const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
             const entry = entryMap[dateStr]
             const isToday = dateStr === todayStr
+            const isFuture = dateStr > todayStr
+            const isClickable = !isFuture // 今天和过去都可以点击
             const moodCfg = entry ? getMoodConfig(entry.mood) : null
+
+            function handleDayClick() {
+              if (!isClickable) return
+              if (entry) {
+                navigate(`/detail/${entry.id}`)
+              } else {
+                // 没有记录：今天跳首页，过去跳 /diary/:date
+                navigate(isToday ? '/' : `/diary/${dateStr}`)
+              }
+            }
 
             return (
               <motion.button
                 key={day}
-                whileHover={entry ? { scale: 1.15 } : {}}
-                whileTap={entry ? { scale: 0.95 } : {}}
-                onClick={() => entry && navigate(`/detail/${entry.id}`)}
+                whileHover={isClickable ? { scale: 1.12 } : {}}
+                whileTap={isClickable ? { scale: 0.93 } : {}}
+                onClick={handleDayClick}
                 className={`aspect-square rounded-xl flex flex-col items-center justify-center relative transition-shadow ${
-                  entry ? 'cursor-pointer shadow-sm' : 'cursor-default'
-                } ${isToday && !entry ? 'ring-2 ring-violet-300 ring-offset-1' : ''}`}
-                style={{ backgroundColor: moodCfg ? moodCfg.color + '28' : '#f9fafb' }}
+                  isClickable ? 'cursor-pointer' : 'cursor-default opacity-30'
+                } ${entry ? 'shadow-sm' : ''} ${
+                  isToday && !entry ? 'ring-2 ring-violet-300 ring-offset-1' : ''
+                } ${
+                  isClickable && !entry && !isFuture
+                    ? 'hover:bg-violet-50 hover:ring-1 hover:ring-violet-200'
+                    : ''
+                }`}
+                style={{ backgroundColor: moodCfg ? moodCfg.color + '28' : isFuture ? 'transparent' : '#f9fafb' }}
               >
-                <span className={`text-xs ${entry ? 'text-gray-600 font-medium' : 'text-gray-300'}`}>{day}</span>
-                {entry && <span className="text-xs leading-none mt-0.5">{moodCfg?.emoji}</span>}
+                <span
+                  className={`text-xs font-medium ${
+                    entry ? 'text-gray-600' : isFuture ? 'text-gray-200' : 'text-gray-400'
+                  }`}
+                >
+                  {day}
+                </span>
+                {entry ? (
+                  <span className="text-xs leading-none mt-0.5">{moodCfg?.emoji}</span>
+                ) : isClickable && !isFuture ? (
+                  <span className="text-[9px] leading-none mt-0.5 text-violet-300 opacity-0 group-hover:opacity-100">+</span>
+                ) : null}
                 {isToday && (
                   <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-violet-400" />
                 )}

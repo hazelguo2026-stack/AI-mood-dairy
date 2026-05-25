@@ -11,6 +11,7 @@ export default function App() {
       <div className="min-h-screen bg-gray-50">
         <Routes>
           <Route path="/" element={<TodayPage />} />
+          <Route path="/diary/:date" element={<TodayPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/detail/:id" element={<DetailPage />} />
